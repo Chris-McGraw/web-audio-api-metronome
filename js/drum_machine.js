@@ -101,6 +101,10 @@ class DrumMachine extends React.Component {
         metronomePlaying: true
       });
 
+      // check if context is in suspended state (autoplay policy)
+      if(audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
       playSample(audioCtx, this.state.sampleTest);
     }
     else {
@@ -108,6 +112,10 @@ class DrumMachine extends React.Component {
         metronomePlaying: false
       });
 
+      // check if context is in suspended state (autoplay policy)
+      if(audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
       playSample(audioCtx, this.state.sampleTest)
     }
   }
