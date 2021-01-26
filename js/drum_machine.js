@@ -12,7 +12,7 @@ async function getFile(audioContext, filepath) {
 }
 
 async function setupSample() {
-  const filePath = "../audio/percs/tamby.mp3";
+  const filePath = "audio/percs/tamby.mp3";
   const sample = await getFile(audioCtx, filePath);
   return sample;
 }
@@ -115,7 +115,7 @@ class DrumMachine extends React.Component {
   componentDidMount() {
     setupSample().then((sample) => {
       console.log("file loaded...I think?");
-      playSample(audioCtx, sample);
+      // playSample(audioCtx, sample);
       console.log(audioCtx.currentTime);
 
       this.setState({
