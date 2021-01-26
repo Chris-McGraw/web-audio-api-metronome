@@ -34,17 +34,17 @@ class Metronome extends React.Component {
 
         this.props.toggleMetronomePlaying();
 
-        let audio = document.getElementById("metroAudio").cloneNode(true);
-
-        audio.volume = this.props.volume;
-        audio.play();
+        // let audio = document.getElementById("metroAudio").cloneNode(true);
+        //
+        // audio.volume = this.props.volume;
+        // audio.play();
         // console.log("metronome ticked");
 
         event.currentTarget.style.boxShadow = "4px 4px 6px rgba(0,0,0, 1.0)";
 
-        this.metronomeTimeout = setTimeout(function() {
-          this.metronomeToggle();
-        }.bind(this), ((60 / this.state.metroBPM) * 1000) );
+        // this.metronomeTimeout = setTimeout(function() {
+        //   this.metronomeToggle();
+        // }.bind(this), ((60 / this.state.metroBPM) * 1000) );
       }
       else if(this.props.metronomePlaying === true && event === undefined) {
         let audio = document.getElementById("metroAudio").cloneNode(true);
