@@ -106,6 +106,37 @@ class DrumMachine extends React.Component {
         audioCtx.resume();
       }
       playSample(audioCtx, this.state.sampleTest);
+
+      setTimeout(function() {
+        playSample(audioCtx, this.state.sampleTest);
+      }.bind(this), audioCtx.currentTime + 200);
+      setTimeout(function() {
+        playSample(audioCtx, this.state.sampleTest);
+      }.bind(this), audioCtx.currentTime + 400);
+      setTimeout(function() {
+        playSample(audioCtx, this.state.sampleTest);
+      }.bind(this), audioCtx.currentTime + 600);
+      setTimeout(function() {
+        playSample(audioCtx, this.state.sampleTest);
+      }.bind(this), audioCtx.currentTime + 800);
+      setTimeout(function() {
+        playSample(audioCtx, this.state.sampleTest);
+      }.bind(this), audioCtx.currentTime + 1000);
+      setTimeout(function() {
+        playSample(audioCtx, this.state.sampleTest);
+      }.bind(this), audioCtx.currentTime + 1200);
+      setTimeout(function() {
+        playSample(audioCtx, this.state.sampleTest);
+      }.bind(this), audioCtx.currentTime + 1400);
+      setTimeout(function() {
+        playSample(audioCtx, this.state.sampleTest);
+      }.bind(this), audioCtx.currentTime + 1600);
+      setTimeout(function() {
+        playSample(audioCtx, this.state.sampleTest);
+      }.bind(this), audioCtx.currentTime + 1800);
+      setTimeout(function() {
+        playSample(audioCtx, this.state.sampleTest);
+      }.bind(this), audioCtx.currentTime + 2000);
     }
     else {
       this.setState({
