@@ -8,6 +8,7 @@ class Metronome extends React.Component {
       btnRepeatSpeed: 200
     };
     this.metroBtnUp = this.metroBtnUp.bind(this);
+    this.playSample = this.playSample.bind(this);
     this.metronomeToggle = this.metronomeToggle.bind(this);
     this.metronomeTimeout = null;
     this.metroTempoDown = this.metroTempoDown.bind(this);
@@ -27,6 +28,14 @@ class Metronome extends React.Component {
     }
   }
 
+  playSample(audioContext, audioBuffer, time) {
+    const sampleSource = audioContext.createBufferSource();
+    sampleSource.buffer = audioBuffer;
+    sampleSource.connect(audioContext.destination)
+    sampleSource.start(audioContext.currentTime + time);
+    return sampleSource;
+  }
+
   metronomeToggle(event) {
     if(this.props.power === "on") {
       if(this.props.metronomePlaying === false && event !== undefined) {
@@ -34,11 +43,44 @@ class Metronome extends React.Component {
 
         this.props.toggleMetronomePlaying();
 
-        // let audio = document.getElementById("metroAudio").cloneNode(true);
-        //
-        // audio.volume = this.props.volume;
-        // audio.play();
-        // console.log("metronome ticked");
+        if(this.props.audioCtx.state === "suspended") {
+          this.props.audioCtx.resume();
+        }
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 0);
+
+// TEST
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 0.214);
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 0.428);
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 0.642);
+
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 0.856);
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 0.963);
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 1.070);
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 1.284);
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 1.498);
+
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 1.712);
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 1.926);
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 2.140);
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 2.354);
+
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 2.568);
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 2.675);
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 2.782);
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 2.996);
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 3.210);
+
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 3.424);
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 3.638);
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 3.852);
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 4.066);
+
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 4.280);
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 4.387);
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 4.494);
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 4.708);
+        this.playSample(this.props.audioCtx, this.props.sampleTest, 4.922);
+// TEST
 
         event.currentTarget.style.boxShadow = "4px 4px 6px rgba(0,0,0, 1.0)";
 

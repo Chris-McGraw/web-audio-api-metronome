@@ -4,33 +4,6 @@
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new AudioContext();
 
-async function getFile(audioContext, filepath) {
-  const response = await fetch(filepath);
-  const arrayBuffer = await response.arrayBuffer();
-  const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-  return audioBuffer;
-}
-
-async function setupSample() {
-  const filePath = "audio/percs/tamby.mp3";
-  const sample = await getFile(audioCtx, filePath);
-  return sample;
-}
-
-function playSample(audioContext, audioBuffer) {
-  const sampleSource = audioContext.createBufferSource();
-  sampleSource.buffer = audioBuffer;
-  sampleSource.connect(audioContext.destination)
-  sampleSource.start();
-  return sampleSource;
-}
-
-// setupSample().then((sample) => {
-//   console.log("file loaded...I think?");
-//   playSample(audioCtx, sample);
-//   console.log(audioCtx.currentTime);
-// });
-
 
 class DrumMachine extends React.Component {
   constructor(props) {
@@ -39,10 +12,13 @@ class DrumMachine extends React.Component {
       power: "on",
       volume: 1,
       metronomePlaying: false,
+      audioCtx: audioCtx,
       sampleTest: ""
     };
     this.togglePower = this.togglePower.bind(this);
     this.toggleVolume = this.toggleVolume.bind(this);
+    this.getFile = this.getFile.bind(this);
+    this.setupSample = this.setupSample.bind(this);
     this.toggleMetronomePlaying = this.toggleMetronomePlaying.bind(this);
   }
 
@@ -95,67 +71,35 @@ class DrumMachine extends React.Component {
     }
   }
 
+  async getFile(audioContext, filepath) {
+    const response = await fetch(filepath);
+    const arrayBuffer = await response.arrayBuffer();
+    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+    return audioBuffer;
+  }
+
+  async setupSample() {
+    const filePath = "audio/percs/tamby.mp3";
+    const sample = await this.getFile(this.state.audioCtx, filePath);
+    return sample;
+  }
+
   toggleMetronomePlaying() {
     if(this.state.metronomePlaying === false) {
       this.setState({
         metronomePlaying: true
       });
-
-      // check if context is in suspended state (autoplay policy)
-      if(audioCtx.state === "suspended") {
-        audioCtx.resume();
-      }
-      playSample(audioCtx, this.state.sampleTest);
-
-      setTimeout(function() {
-        playSample(audioCtx, this.state.sampleTest);
-      }.bind(this), audioCtx.currentTime + 200);
-      setTimeout(function() {
-        playSample(audioCtx, this.state.sampleTest);
-      }.bind(this), audioCtx.currentTime + 400);
-      setTimeout(function() {
-        playSample(audioCtx, this.state.sampleTest);
-      }.bind(this), audioCtx.currentTime + 600);
-      setTimeout(function() {
-        playSample(audioCtx, this.state.sampleTest);
-      }.bind(this), audioCtx.currentTime + 800);
-      setTimeout(function() {
-        playSample(audioCtx, this.state.sampleTest);
-      }.bind(this), audioCtx.currentTime + 1000);
-      setTimeout(function() {
-        playSample(audioCtx, this.state.sampleTest);
-      }.bind(this), audioCtx.currentTime + 1200);
-      setTimeout(function() {
-        playSample(audioCtx, this.state.sampleTest);
-      }.bind(this), audioCtx.currentTime + 1400);
-      setTimeout(function() {
-        playSample(audioCtx, this.state.sampleTest);
-      }.bind(this), audioCtx.currentTime + 1600);
-      setTimeout(function() {
-        playSample(audioCtx, this.state.sampleTest);
-      }.bind(this), audioCtx.currentTime + 1800);
-      setTimeout(function() {
-        playSample(audioCtx, this.state.sampleTest);
-      }.bind(this), audioCtx.currentTime + 2000);
     }
     else {
       this.setState({
         metronomePlaying: false
       });
-
-      // check if context is in suspended state (autoplay policy)
-      if(audioCtx.state === "suspended") {
-        audioCtx.resume();
-      }
-      playSample(audioCtx, this.state.sampleTest)
     }
   }
 
   componentDidMount() {
-    setupSample().then((sample) => {
-      console.log("file loaded...I think?");
-      // playSample(audioCtx, sample);
-      console.log(audioCtx.currentTime);
+    this.setupSample().then((sample) => {
+      console.log("metronome audio file loaded");
 
       this.setState({
         sampleTest: sample
@@ -170,7 +114,7 @@ class DrumMachine extends React.Component {
       <div>
         <div id="drum-machine">
           <div id="machine-controls">
-            <Metronome power={this.state.power} volume={this.state.volume} metronomePlaying={this.state.metronomePlaying} toggleMetronomePlaying={this.toggleMetronomePlaying} />
+            <Metronome power={this.state.power} volume={this.state.volume} audioCtx={this.state.audioCtx} sampleTest={this.state.sampleTest} metronomePlaying={this.state.metronomePlaying} toggleMetronomePlaying={this.toggleMetronomePlaying} />
           </div>
         </div>
       </div>
