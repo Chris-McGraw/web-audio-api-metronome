@@ -113,9 +113,7 @@ class DrumMachine extends React.Component {
     return (
       <div>
         <div id="drum-machine">
-          <div id="machine-controls">
-            <Metronome power={this.state.power} volume={this.state.volume} audioCtx={this.state.audioCtx} sampleTest={this.state.sampleTest} metronomePlaying={this.state.metronomePlaying} toggleMetronomePlaying={this.toggleMetronomePlaying} />
-          </div>
+          <Metronome power={this.state.power} volume={this.state.volume} audioCtx={this.state.audioCtx} sampleTest={this.state.sampleTest} metronomePlaying={this.state.metronomePlaying} toggleMetronomePlaying={this.toggleMetronomePlaying} />
         </div>
       </div>
     );

@@ -169,9 +169,6 @@ class Metronome extends React.Component {
   render() {
     return (
       <div id="metronome-section">
-        <div id="metronome-container">
-          <p id="metro-header">Metronome</p>
-
           <div id="metro-container-inner">
             <div id="metro-display">
               <p className={this.metroDisplayStyle()}>{this.state.metroBPM} BPM</p>
@@ -182,8 +179,8 @@ class Metronome extends React.Component {
               onMouseUp={this.metroBtnUp} onMouseLeave={this.metroBtnUp}>
                 <div className={this.metroGlowStyle("metro-toggle-btn")}></div>
                 <div id="metro-play-stop-span">
-                   <i className="fas fa-play"></i> <span id="metro-slash-span">/</span> <i className="fas fa-stop"></i>
-                 </div>
+                  <i className="fas fa-play"></i> <span id="metro-slash-span">/</span> <i className="fas fa-stop"></i>
+                </div>
               </div>
 
               <div className={this.metroBtnStyle()} onMouseDown={this.metroTempoDown}
@@ -201,7 +198,6 @@ class Metronome extends React.Component {
               </div>
             </div>
           </div>
-        </div>
       </div>
     );
   }
