@@ -91,9 +91,6 @@ class Metronome extends React.Component {
     if(this.props.power === "on" && this.props.metronomePlaying === false && this.state.metroBPM > 40) {
       if(event !== undefined) {
         event.currentTarget.style.boxShadow = "4px 4px 6px rgba(0,0,0, 1.0), inset 0 0 100px 100px rgba(255, 255, 255, 0.5)";
-
-        console.log("confused?");
-        event.preventDefault();
       }
       else if(this.state.btnRepeatSpeed > 20) {
         this.setState({
@@ -178,8 +175,8 @@ class Metronome extends React.Component {
             </div>
 
             <div id="metro-controls">
-              <div className={this.metroBtnStyle("metro-toggle-btn")} onMouseDown={this.metronomeToggle}
-              onMouseUp={this.metroBtnUp} onMouseLeave={this.metroBtnUp}>
+              <div className={this.metroBtnStyle("metro-toggle-btn")} onTouchStart={this.metronomeToggle} onTouchEnd={this.metroBtnUp}
+              onMouseDown={this.metronomeToggle} onMouseUp={this.metroBtnUp} onMouseLeave={this.metroBtnUp}>
                 <div className={this.metroGlowStyle("metro-toggle-btn")}></div>
                 <div id="metro-play-stop-span">
                   <i className="fas fa-play"></i> <span id="metro-slash-span">/</span> <i className="fas fa-stop"></i>
