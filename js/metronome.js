@@ -91,6 +91,9 @@ class Metronome extends React.Component {
     if(this.props.power === "on" && this.props.metronomePlaying === false && this.state.metroBPM > 40) {
       if(event !== undefined) {
         event.currentTarget.style.boxShadow = "4px 4px 6px rgba(0,0,0, 1.0), inset 0 0 100px 100px rgba(255, 255, 255, 0.5)";
+
+        console.log("confused?");
+        event.preventDefault();
       }
       else if(this.state.btnRepeatSpeed > 20) {
         this.setState({
@@ -183,15 +186,15 @@ class Metronome extends React.Component {
                 </div>
               </div>
 
-              <div className={this.metroBtnStyle()} onMouseDown={this.metroTempoDown}
-              onMouseUp={this.metroBtnUp} onMouseLeave={this.metroBtnUp}>
+              <div className={this.metroBtnStyle()} onTouchStart={this.metroTempoDown} onTouchEnd={this.metroBtnUp}
+              onMouseDown={this.metroTempoDown} onMouseUp={this.metroBtnUp} onMouseLeave={this.metroBtnUp}>
                 <div className={this.metroGlowStyle()}>
                   <i className="fas fa-caret-down"></i>
                 </div>
               </div>
 
-              <div className={this.metroBtnStyle()} onMouseDown={this.metroTempoUp}
-              onMouseUp={this.metroBtnUp} onMouseLeave={this.metroBtnUp}>
+              <div className={this.metroBtnStyle()} onTouchStart={this.metroTempoUp} onTouchEnd={this.metroBtnUp}
+              onMouseDown={this.metroTempoUp} onMouseUp={this.metroBtnUp} onMouseLeave={this.metroBtnUp}>
                 <div className={this.metroGlowStyle()}>
                   <i className="fas fa-caret-up"></i>
                 </div>
