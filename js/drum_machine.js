@@ -98,6 +98,10 @@ class DrumMachine extends React.Component {
   }
 
   componentDidMount() {
+    ReactDOM.findDOMNode(this).addEventListener("touchstart",(event)=> {
+      event.preventDefault();
+    });
+
     this.setupSample().then((sample) => {
       console.log("metronome audio file loaded");
 
