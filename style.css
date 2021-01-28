@@ -17,6 +17,9 @@
 
 html,body {
   height: 100%;
+
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
 }
 
 
@@ -40,7 +43,7 @@ html,body {
 
   position: relative;
 
-  /* background-color: red; */
+  background-color: red;
 }
 
 #metro-container-inner {
