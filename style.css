@@ -233,7 +233,7 @@ html,body {
 }
 
 #pad-left {
-  height: 80px;
+  height: 52%;
 
   background-color: red;
 
@@ -241,7 +241,7 @@ html,body {
 }
 
 #pad-right {
-  height: 80px;
+  height: 52%;
 
   background-color: blue;
 
@@ -266,6 +266,22 @@ html,body {
   }
 
   #metronome-section {
+    max-width: 90%;
+    height: 135px;
+  }
+
+  #pad-test-section {
+    top: 230px;
+
+    max-width: 400px;
+    width: 100%;
+    height: 200px;
+    margin: auto;
+
+    background-color: #2d2e2d;
+  }
+
+  #pad-test-inner {
     max-width: 90%;
     height: 135px;
   }
