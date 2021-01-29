@@ -51,7 +51,7 @@ class Metronome extends React.Component {
   scheduler() {
     // while there are notes that will need to play before the next interval, schedule them and advance the pointer.
     while (this.state.nextNoteTime < this.props.audioCtx.currentTime + this.state.scheduleAheadTime ) {
-      this.playSample(this.props.audioCtx, this.props.sampleTest, this.state.nextNoteTime);
+      this.playSample(this.props.audioCtx, this.props.sampleTest[0], this.state.nextNoteTime);
       this.nextNote();
     }
   }

@@ -17,11 +17,11 @@ class PadTest extends React.Component {
   }
 
   kickTest() {
-    this.playSample(this.props.audioCtx, this.props.sampleTestKick, this.props.audioCtx.currentTime);
+    this.playSample(this.props.audioCtx, this.props.sampleTest[1], this.props.audioCtx.currentTime);
   }
 
   clapTest() {
-    this.playSample(this.props.audioCtx, this.props.sampleTestClap, this.props.audioCtx.currentTime);
+    this.playSample(this.props.audioCtx, this.props.sampleTest[2], this.props.audioCtx.currentTime);
   }
 
   render() {
