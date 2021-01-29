@@ -13,7 +13,9 @@ class DrumMachine extends React.Component {
       volume: 1,
       metronomePlaying: false,
       audioCtx: audioCtx,
-      sampleTest: ""
+      sampleTest: "",
+      sampleTestKick: "",
+      sampleTestClap: ""
     };
     this.togglePower = this.togglePower.bind(this);
     this.toggleVolume = this.toggleVolume.bind(this);
@@ -84,6 +86,18 @@ class DrumMachine extends React.Component {
     return sample;
   }
 
+  async setupSampleKick() {
+    const filePath = "audio/percs/kick5.mp3";
+    const sample = await this.getFile(this.state.audioCtx, filePath);
+    return sample;
+  }
+
+  async setupSampleClap() {
+    const filePath = "audio/percs/clap1.mp3";
+    const sample = await this.getFile(this.state.audioCtx, filePath);
+    return sample;
+  }
+
   toggleMetronomePlaying() {
     if(this.state.metronomePlaying === false) {
       this.setState({
@@ -111,6 +125,26 @@ class DrumMachine extends React.Component {
 
       console.log(this.state.sampleTest);
     });
+
+    this.setupSampleKick().then((sample) => {
+      console.log("kick test audio file loaded");
+
+      this.setState({
+        sampleTestKick: sample
+      });
+
+      console.log(this.state.sampleTestKick);
+    });
+
+    this.setupSampleClap().then((sample) => {
+      console.log("clap test audio file loaded");
+
+      this.setState({
+        sampleTestClap: sample
+      });
+
+      console.log(this.state.sampleTestClap);
+    });
   }
 
   render() {
@@ -118,6 +152,7 @@ class DrumMachine extends React.Component {
       <div>
         <div id="drum-machine">
           <Metronome power={this.state.power} volume={this.state.volume} audioCtx={this.state.audioCtx} sampleTest={this.state.sampleTest} metronomePlaying={this.state.metronomePlaying} toggleMetronomePlaying={this.toggleMetronomePlaying} />
+          <PadTest audioCtx={this.state.audioCtx} sampleTestKick={this.state.sampleTestKick} sampleTestClap={this.state.sampleTestClap} />
         </div>
       </div>
     );
