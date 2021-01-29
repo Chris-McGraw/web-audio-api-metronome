@@ -5,6 +5,9 @@ const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new AudioContext();
 
 
+const audioKit1 = ["audio/percs/tamby.mp3", "audio/percs/kick5.mp3", "audio/percs/clap1.mp3"];
+
+
 class DrumMachine extends React.Component {
   constructor(props) {
     super(props);
@@ -19,8 +22,8 @@ class DrumMachine extends React.Component {
     };
     this.togglePower = this.togglePower.bind(this);
     this.toggleVolume = this.toggleVolume.bind(this);
-    this.getFile = this.getFile.bind(this);
-    this.setupSample = this.setupSample.bind(this);
+    this.getAudioKitFiles = this.getAudioKitFiles.bind(this);
+    this.setupSampleArray = this.setupSampleArray.bind(this);
     this.toggleMetronomePlaying = this.toggleMetronomePlaying.bind(this);
   }
 
@@ -73,29 +76,23 @@ class DrumMachine extends React.Component {
     }
   }
 
-  async getFile(audioContext, filepath) {
-    const response = await fetch(filepath);
-    const arrayBuffer = await response.arrayBuffer();
-    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-    return audioBuffer;
+  async getAudioKitFiles(audioContext, audioKit) {
+    const audioBufferArray = [];
+
+    for(const filepath of audioKit) {
+      const response = await fetch(filepath);
+      const arrayBuffer = await response.arrayBuffer();
+      const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+      audioBufferArray.push(audioBuffer);
+    }
+
+    return audioBufferArray;
   }
 
-  async setupSample() {
-    const filePath = "audio/percs/tamby.mp3";
-    const sample = await this.getFile(this.state.audioCtx, filePath);
-    return sample;
-  }
-
-  async setupSampleKick() {
-    const filePath = "audio/percs/kick5.mp3";
-    const sample = await this.getFile(this.state.audioCtx, filePath);
-    return sample;
-  }
-
-  async setupSampleClap() {
-    const filePath = "audio/percs/clap1.mp3";
-    const sample = await this.getFile(this.state.audioCtx, filePath);
-    return sample;
+  async setupSampleArray() {
+    const sampleArray = await this.getAudioKitFiles(this.state.audioCtx, audioKit1);
+    return sampleArray;
   }
 
   toggleMetronomePlaying() {
@@ -116,34 +113,13 @@ class DrumMachine extends React.Component {
       event.preventDefault();
     });
 
-    this.setupSample().then((sample) => {
-      console.log("metronome audio file loaded");
-
+    this.setupSampleArray().then((sampleArray) => {
       this.setState({
-        sampleTest: sample
+        sampleTest: sampleArray
       });
 
+      console.log("audio sample array files loaded");
       console.log(this.state.sampleTest);
-    });
-
-    this.setupSampleKick().then((sample) => {
-      console.log("kick test audio file loaded");
-
-      this.setState({
-        sampleTestKick: sample
-      });
-
-      console.log(this.state.sampleTestKick);
-    });
-
-    this.setupSampleClap().then((sample) => {
-      console.log("clap test audio file loaded");
-
-      this.setState({
-        sampleTestClap: sample
-      });
-
-      console.log(this.state.sampleTestClap);
     });
   }
 
@@ -152,7 +128,7 @@ class DrumMachine extends React.Component {
       <div>
         <div id="drum-machine">
           <Metronome power={this.state.power} volume={this.state.volume} audioCtx={this.state.audioCtx} sampleTest={this.state.sampleTest} metronomePlaying={this.state.metronomePlaying} toggleMetronomePlaying={this.toggleMetronomePlaying} />
-          <PadTest audioCtx={this.state.audioCtx} sampleTestKick={this.state.sampleTestKick} sampleTestClap={this.state.sampleTestClap} />
+          <PadTest audioCtx={this.state.audioCtx} sampleTest={this.state.sampleTest} />
         </div>
       </div>
     );
